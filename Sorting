@@ -1,0 +1,94 @@
+package com.company;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class Main {
+
+    public static List<Integer> makeList( int size, Random rng ) {
+        List<Integer> result = new ArrayList<>();
+
+        for( int i = 0; i < size; i++ ) {
+            result.add( rng.nextInt( 100 ) );
+        } // for()
+
+        return result;
+    } // makeList( int, Random )
+    /*
+    Creating a list with numbers under 100
+     */
+    public static int posOfSmallest( List<Integer> data, int start ) {
+        int bestGuessSoFar = start;
+
+        for( int i = start + 1; i < data.size(); i++ ) {
+            if(data.get(i)<data.get(bestGuessSoFar) ) {
+                bestGuessSoFar = i;
+            } // if
+        } // for()
+
+        return bestGuessSoFar;
+    } // posOfSmallest( List<Integer>, int )
+    /*
+    Sorting the list and comparing each until it gets the smallest one.
+     */
+    public static void exchange( List<Integer> data, int i, int j ) {
+        int temp = data.get(i);
+        data.set( i, data.get(j) );
+        data.set( j, temp );
+    } // exchange( List<Integer>, int, int )
+    public static void selectionSort( List<Integer> data ) {
+
+        for( int i = 0; i < data.size(); i++ ) {
+            int j = posOfSmallest( data, i );
+            exchange( data, i, j );
+        } // for
+
+    } // selectionSort( List<Integer> )
+    /*
+    Exchanges the values for two separate integers in the list.
+     */
+    public static void printList( List<Integer> data ) {
+        for( int datum : data ) {
+            System.out.println( datum );
+        }  // for
+    } // printList( List<Integer> )
+    /*
+    Prints a list of integers in a row, downwards rather than creating a horizontal
+    list.
+    */
+    public static void main(String[] args) {
+
+        Random rng = new Random();
+        List<Integer> samples = makeList(16, rng);
+
+        printList( samples );
+
+        System.out.println();
+
+        int index = posOfSmallest(samples, 8);
+
+        System.out.println("index = " + index);
+
+        System.out.println();
+        System.out.println("List of Samples = " + samples);
+
+        exchange( samples, 3, 6);
+        System.out.println("Exchange values = " + samples);
+        printList(samples);
+        /*
+        Printing out both of the lists before and after exchanging the values
+         */
+        selectionSort(samples);
+        System.out.println( "Sorted List  From Least to Greatest = " + samples);
+        /*
+        Using the selectionSort method to sort the list of integers from
+        least to greatest.
+         */
+        printList(samples);
+        System.out.println("Above is the Sorted List of Integers");
+
+    }//main(String[] args)
+
+}// main
+'''
